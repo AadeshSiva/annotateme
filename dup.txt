@@ -1,0 +1,1106 @@
+// import './Textanno.css';
+// import { BiSolidCloudUpload } from "react-icons/bi";
+// import { FaRotateLeft } from "react-icons/fa6";
+// import { useState, useEffect, useRef } from 'react';
+// import { AiFillEdit } from "react-icons/ai";
+// import { BiSolidFileJson } from "react-icons/bi";
+
+// export default function Textanno() {
+//     const [uploader, setUploader] = useState(true);
+//     const [fileName, setFileName] = useState('');
+//     const [fileContent, setFileContent] = useState('');
+//     const [splitBy, setSplitBy] = useState('line');
+//     const [splitText, setSplitText] = useState([]);
+//     const [indexval, setIndexval] = useState(0);
+//     const [showadd, setShowAdd] = useState(false);
+//     const [tags, setTags] = useState([]);
+//     const [selectedTag, setSelectedTag] = useState(null); // Store selected tag details
+
+//     const inputRef = useRef(null);
+
+//     const getRandomColor = () => {
+//         const letters = "0123456789ABCDEF";
+//         let color = "#";
+//         for (let i = 0; i < 6; i++) {
+//             color += letters[Math.floor(Math.random() * 16)];
+//         }
+//         return color;
+//     };
+
+//     const addTag = () => {
+//         const newTag = inputRef.current.value.trim();
+//         if (newTag) {
+//             const tagWithColor = { text: newTag, color: getRandomColor() };
+//             setTags([...tags, tagWithColor]);
+//             inputRef.current.value = "";
+//             inputRef.current.focus();
+//         }
+//     };
+
+//     const txtinputfile = (event) => {
+//         const file = event.target.files[0];
+//         if (file) {
+//             setFileName(file.name);
+//             const reader = new FileReader();
+//             reader.onload = (e) => {
+//                 setFileContent(e.target.result);
+//                 setSplitText([]);
+//             };
+//             reader.readAsText(file);
+//         }
+//     };
+
+//     const removeFile = () => {
+//         setFileName('');
+//         setFileContent('');
+//         setSplitText([]);
+//         document.getElementById("txtfileinput").value = "";
+//     };
+
+//     const handleSplitText = (value) => {
+//         let lines;
+//         if (value === 'line') {
+//             lines = fileContent.split('\n').filter(line => line.trim() !== '');
+//         } else if (value === 'empty') {
+//             lines = fileContent.split(/\n\s*\n/).filter(line => line.trim() !== '');
+//         } else {
+//             lines = [fileContent];
+//         }
+//         setSplitText(lines);
+//     };
+
+//     useEffect(() => {
+//         const handleBeforeUnload = (event) => {
+//             const confirmationMessage = "Are you sure you want to leave this page? Changes you made may not be saved.";
+//             event.returnValue = confirmationMessage;
+//             return confirmationMessage;
+//         };
+
+//         window.addEventListener('beforeunload', handleBeforeUnload);
+
+//         return () => {
+//             window.removeEventListener('beforeunload', handleBeforeUnload);
+//         };
+//     }, []);
+
+//     return (
+//         <>
+//             <div className="textannoouttercon">
+//                 {uploader && (
+//                     <main className="textannoconinp">
+//                         <p className='logotxt'>AnnotateMe.</p>
+//                         <section className="txtfileinput">
+//                             <div className="innernull">
+//                                 <input type="file" id="txtfileinput" accept=".txt" onChange={txtinputfile} />
+//                                 <p className='uploadicon'><BiSolidCloudUpload /></p>
+//                                 Drag / Choose Text File.
+//                             </div>
+//                             {fileName !== '' ? (
+//                                 <div className="innernotnull">
+//                                     <p>
+//                                         <span onClick={() => { setUploader(false) }} className="getstartbtn">Get Start</span>
+//                                         with <b>{fileName}</b>
+//                                     </p>
+//                                     <p style={{ position: 'absolute', bottom: '0.5em', right: '1em', cursor: 'pointer' }} onClick={removeFile}>
+//                                         <FaRotateLeft />
+//                                     </p>
+//                                 </div>
+//                             ) : null}
+//                         </section>
+//                     </main>
+//                 )}
+//                 {!uploader && (
+//                     <main className="txtannopg">
+//                         <menu className="annotatesidemenu">
+//                             <div className="annotatesideinner">
+//                                 <p className="annotxtside">AnnotateMe.</p>
+//                                 <select
+//                                     className='annotatesideinnerselect'
+//                                     onChange={(e) => {
+//                                         setSplitBy(e.target.value);
+//                                         handleSplitText(e.target.value);
+//                                     }}
+//                                 >
+//                                     <option value="all">All</option>
+//                                     <option value="line">Separate by new line</option>
+//                                     <option value="empty">Separate by empty line</option>
+//                                 </select>
+//                                 <div className="annotatesideinnercountcon">
+//                                     {Array.from({ length: splitText.length }).map((_, index) => (
+//                                         <p
+//                                             onClick={() => { setIndexval(index) }}
+//                                             key={index}
+//                                             className={`annotatesideinnercount ${index === indexval ? 'selected' : ''}`}
+//                                         >
+//                                             {index + 1}
+//                                         </p>
+//                                     ))}
+//                                 </div>
+//                                 <div className="annotatesidetagcon">
+//                                     <div className="annotatetagstop">
+//                                         <div className="annotatetagadd">
+//                                             {!showadd ? (
+//                                                 <p onClick={() => { setShowAdd(true) }} className="annotatetagaddplus">+</p>
+//                                             ) : (
+//                                                 <>
+//                                                     <input
+//                                                         className="annotatetagaddinput"
+//                                                         type="text"
+//                                                         placeholder='New tags'
+//                                                         ref={inputRef}
+//                                                         onKeyDown={(e) => {
+//                                                             if (e.key === 'Enter') {
+//                                                                 addTag();
+//                                                             }
+//                                                         }}
+//                                                     />
+//                                                     <p className="annotatetagaddplus2" onClick={addTag}>+</p>
+//                                                 </>
+//                                             )}
+//                                         </div>
+//                                         <p className="tagsedit"><AiFillEdit /></p>
+//                                     </div>
+//                                     <div className="annotatetagslistcontainer">
+//                                         {tags.length > 0 ? (
+//                                             tags.map((tag, index) => (
+//                                                 <span
+//                                                     onClick={() => {
+//                                                         setSelectedTag(selectedTag?.text === tag.text ? null : { text: tag.text, color: tag.color });
+//                                                     }}
+//                                                     key={index}
+//                                                     className="annotatetag"
+//                                                     style={{
+//                                                         backgroundColor: tag.color,
+//                                                         outline: selectedTag?.text === tag.text ? '2px dashed black' : 'none',
+//                                                     }}
+//                                                 >
+//                                                     {tag.text}
+//                                                 </span>
+//                                             ))
+//                                         ) : (
+//                                             <p onClick={() => { setShowAdd(true) }} style={{ opacity: '0.5', padding: '0.5em 0', cursor: 'pointer' }}>Add New tags here +</p>
+//                                         )}
+//                                     </div>
+//                                 </div>
+//                                 <p className="annoexport">Export as JSON <BiSolidFileJson /></p>
+//                             </div>
+//                         </menu>
+//                         <div className="textplaygroundcon">
+//                             <div className="textplayground">
+//                                 <div className="playgroundtop">
+//                                     <p className="filenamepgtop">{fileName}</p>
+//                                     <p className='threebtnpgtop'>&bull;&bull;&bull;</p>
+//                                 </div>
+//                                 <div className="mainplayground">
+//                                     {splitText.length > 0 ? (
+//                                         <p className="mainplaygroundtxt">{splitText[indexval]}</p>
+//                                     ) : (
+//                                         <p className="mainplaygroundtxt">{fileContent}</p>
+//                                     )}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </main>
+//                 )}
+//             </div>
+//         </>
+//     );
+// }
+// ////////////////////////////////////////////////////////////////////////////////////
+// import './Textanno.css';
+// import { BiSolidCloudUpload } from "react-icons/bi";
+// import { FaRotateLeft } from "react-icons/fa6";
+// import { useState, useEffect, useRef } from 'react';
+// import { AiFillEdit } from "react-icons/ai";
+// import { BiSolidFileJson } from "react-icons/bi";
+
+// export default function Textanno() {
+//     const [uploader, setUploader] = useState(true);
+//     const [fileName, setFileName] = useState('');
+//     const [fileContent, setFileContent] = useState('');
+//     const [splitBy, setSplitBy] = useState('line');
+//     const [splitText, setSplitText] = useState([]);
+//     const [indexval, setIndexval] = useState(0);
+//     const [showadd, setShowAdd] = useState(false);
+//     const [tags, setTags] = useState([]);
+//     const [selectedTag, setSelectedTag] = useState(null); // Store selected tag details
+//     const [selectedFragments, setSelectedFragments] = useState([]); // Store selected text fragments
+
+//     const inputRef = useRef(null);
+
+//     const getRandomColor = () => {
+//         const letters = "0123456789ABCDEF";
+//         let color = "#";
+//         for (let i = 0; i < 6; i++) {
+//             color += letters[Math.floor(Math.random() * 16)];
+//         }
+//         return color;
+//     };
+
+//     const addTag = () => {
+//         const newTag = inputRef.current.value.trim();
+//         if (newTag) {
+//             const tagWithColor = { text: newTag, color: getRandomColor() };
+//             setTags([...tags, tagWithColor]);
+//             inputRef.current.value = "";
+//             inputRef.current.focus();
+//         }
+//     };
+
+//     const txtinputfile = (event) => {
+//         const file = event.target.files[0];
+//         if (file) {
+//             setFileName(file.name);
+//             const reader = new FileReader();
+//             reader.onload = (e) => {
+//                 setFileContent(e.target.result);
+//                 setSplitText([]);
+//             };
+//             reader.readAsText(file);
+//         }
+//     };
+
+//     const removeFile = () => {
+//         setFileName('');
+//         setFileContent('');
+//         setSplitText([]);
+//         setSelectedFragments([]); // Clear selected fragments
+//         document.getElementById("txtfileinput").value = "";
+//     };
+
+//     const handleSplitText = (value) => {
+//         let lines;
+//         if (value === 'line') {
+//             lines = fileContent.split('\n').filter(line => line.trim() !== '');
+//         } else if (value === 'empty') {
+//             lines = fileContent.split(/\n\s*\n/).filter(line => line.trim() !== '');
+//         } else {
+//             lines = [fileContent];
+//         }
+//         setSplitText(lines);
+//         setSelectedFragments([]); // Clear selected fragments when splitting text
+//     };
+
+//     useEffect(() => {
+//         const handleBeforeUnload = (event) => {
+//             const confirmationMessage = "Are you sure you want to leave this page? Changes you made may not be saved.";
+//             event.returnValue = confirmationMessage;
+//             return confirmationMessage;
+//         };
+
+//         window.addEventListener('beforeunload', handleBeforeUnload);
+
+//         return () => {
+//             window.removeEventListener('beforeunload', handleBeforeUnload);
+//         };
+//     }, []);
+
+//     const handleTextSelection = () => {
+//         const selection = window.getSelection();
+//         const selectedText = selection.toString().trim();
+
+//         if (selectedText && selectedTag) {
+//             const currentText = splitText[indexval]; // Get current split text based on index
+//             const startPos = currentText.indexOf(selectedText);
+//             const endPos = startPos + selectedText.length;
+
+//             // Check if selected text exists in selectedFragments to avoid duplicates
+//             if (!selectedFragments.some(fragment => fragment.text === selectedText && fragment.startPos === startPos)) {
+//                 setSelectedFragments(prev => [
+//                     ...prev,
+//                     {
+//                         text: selectedText,
+//                         startPos,
+//                         endPos,
+//                         tag: selectedTag,
+//                     }
+//                 ]);
+//             }
+
+//             selection.removeAllRanges(); // Clear the selection
+//         }
+//     };
+
+//     const renderHighlightedText = (text) => {
+//         let renderedText = [];
+//         let lastEnd = 0;
+
+//         const sortedFragments = selectedFragments
+//             .filter(fragment => fragment.startPos >= 0 && fragment.endPos <= text.length) // Ensure the fragments are within bounds
+//             .sort((a, b) => a.startPos - b.startPos);
+
+//         sortedFragments.forEach((fragment, index) => {
+//             if (lastEnd < fragment.startPos) {
+//                 renderedText.push(text.slice(lastEnd, fragment.startPos));
+//             }
+
+//             renderedText.push(
+//                 <span
+//                     key={index}
+//                     style={{
+//                         backgroundColor: fragment.tag.color,
+//                         padding: '0.2em',
+//                         margin: '0 0.1em',
+//                         display: 'inline-block',
+//                         borderRadius: '4px',
+//                     }}
+//                     title={fragment.tag.text} // Show the tag text on hover
+//                 >
+//                     {fragment.text}
+//                 </span>
+//             );
+
+//             lastEnd = fragment.endPos;
+//         });
+
+//         if (lastEnd < text.length) {
+//             renderedText.push(text.slice(lastEnd));
+//         }
+
+//         return renderedText;
+//     };
+
+//     const handleIndexChange = (index) => {
+//         setIndexval(index);
+//         setSelectedFragments([]); // Clear selected fragments when index changes
+//     };
+
+//     return (
+//         <>
+//             <div className="textannoouttercon">
+//                 {uploader && (
+//                     <main className="textannoconinp">
+//                         <p className='logotxt'>AnnotateMe.</p>
+//                         <section className="txtfileinput">
+//                             <div className="innernull">
+//                                 <input type="file" id="txtfileinput" accept=".txt" onChange={txtinputfile} />
+//                                 <p className='uploadicon'><BiSolidCloudUpload /></p>
+//                                 Drag / Choose Text File.
+//                             </div>
+//                             {fileName !== '' ? (
+//                                 <div className="innernotnull">
+//                                     <p>
+//                                         <span onClick={() => { setUploader(false) }} className="getstartbtn">Get Start</span>
+//                                         with <b>{fileName}</b>
+//                                     </p>
+//                                     <p style={{ position: 'absolute', bottom: '0.5em', right: '1em', cursor: 'pointer' }} onClick={removeFile}>
+//                                         <FaRotateLeft />
+//                                     </p>
+//                                 </div>
+//                             ) : null}
+//                         </section>
+//                     </main>
+//                 )}
+//                 {!uploader && (
+//                     <main className="txtannopg">
+//                         <menu className="annotatesidemenu">
+//                             <div className="annotatesideinner">
+//                                 <p className="annotxtside">AnnotateMe.</p>
+//                                 <select
+//                                     className='annotatesideinnerselect'
+//                                     onChange={(e) => {
+//                                         setSplitBy(e.target.value);
+//                                         handleSplitText(e.target.value);
+//                                     }}
+//                                 >
+//                                     <option value="all">All</option>
+//                                     <option value="line">Separate by new line</option>
+//                                     <option value="empty">Separate by empty line</option>
+//                                 </select>
+//                                 <div className="annotatesideinnercountcon">
+//                                     {Array.from({ length: splitText.length }).map((_, index) => (
+//                                         <p
+//                                             onClick={() => handleIndexChange(index)}
+//                                             key={index}
+//                                             className={`annotatesideinnercount ${index === indexval ? 'selected' : ''}`}
+//                                         >
+//                                             {index + 1}
+//                                         </p>
+//                                     ))}
+//                                 </div>
+//                                 <div className="annotatesidetagcon">
+//                                     <div className="annotatetagstop">
+//                                         <div className="annotatetagadd">
+//                                             {!showadd ? (
+//                                                 <p onClick={() => { setShowAdd(true) }} className="annotatetagaddplus">+</p>
+//                                             ) : (
+//                                                 <>
+//                                                     <input
+//                                                         className="annotatetagaddinput"
+//                                                         type="text"
+//                                                         placeholder='New tags'
+//                                                         ref={inputRef}
+//                                                         onKeyDown={(e) => {
+//                                                             if (e.key === 'Enter') {
+//                                                                 addTag();
+//                                                             }
+//                                                         }}
+//                                                     />
+//                                                     <p className="annotatetagaddplus2" onClick={addTag}>+</p>
+//                                                 </>
+//                                             )}
+//                                         </div>
+//                                         <p className="tagsedit"><AiFillEdit /></p>
+//                                     </div>
+//                                     <div className="annotatetagslistcontainer">
+//                                         {tags.length > 0 ? (
+//                                             tags.map((tag, index) => (
+//                                                 <span
+//                                                     onClick={() => {
+//                                                         setSelectedTag(selectedTag?.text === tag.text ? null : { text: tag.text, color: tag.color });
+//                                                     }}
+//                                                     key={index}
+//                                                     className="annotatetag"
+//                                                     style={{
+//                                                         backgroundColor: tag.color,
+//                                                         outline: selectedTag?.text === tag.text ? '2px dashed black' : 'none',
+//                                                     }}
+//                                                 >
+//                                                     {tag.text}
+//                                                 </span>
+//                                             ))
+//                                         ) : (
+//                                             <p onClick={() => { setShowAdd(true) }} style={{ opacity: '0.5', padding: '0.5em 0', cursor: 'pointer' }}>Add New tags here +</p>
+//                                         )}
+//                                     </div>
+//                                 </div>
+//                                 <p className="annoexport">Export as JSON <BiSolidFileJson /></p>
+//                             </div>
+//                         </menu>
+//                         <div className="textplaygroundcon">
+//                             <div className="textplayground">
+//                                 <div className="playgroundtop">
+//                                     <p className="filenamepgtop">{fileName}</p>
+//                                     <p className='threebtnpgtop'>&bull;&bull;&bull;</p>
+//                                 </div>
+//                                 <div className="mainplayground" onMouseUp={handleTextSelection}>
+//                                     {splitText.length > 0 ? (
+//                                         <p className="mainplaygroundtxt">
+//                                             {renderHighlightedText(splitText[indexval])}
+//                                         </p>
+//                                     ) : (
+//                                         <p className="mainplaygroundtxt">
+//                                             {renderHighlightedText(fileContent)}
+//                                         </p>
+//                                     )}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </main>
+//                 )}
+//             </div>
+//         </>
+//     );
+// }
+import './Textanno.css';
+import { BiSolidCloudUpload } from "react-icons/bi";
+import { FaRotateLeft } from "react-icons/fa6";
+import { useState, useEffect, useRef } from 'react';
+import { AiFillEdit } from "react-icons/ai";
+import { BiSolidFileJson } from "react-icons/bi";
+
+export default function Textanno() {
+    const [uploader, setUploader] = useState(true);
+    const [fileName, setFileName] = useState('');
+    const [fileContent, setFileContent] = useState('');
+    const [splitBy, setSplitBy] = useState('line'); // default to 'line'
+    const [splitText, setSplitText] = useState([]);
+    const [indexval, setIndexval] = useState(0);
+    const [showadd, setShowAdd] = useState(false);
+    const [tags, setTags] = useState([]);
+    const [selectedTag, setSelectedTag] = useState(null);
+    const [selectedFragments, setSelectedFragments] = useState([]);
+
+    const inputRef = useRef(null);
+
+    const getRandomColor = () => {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
+    const addTag = () => {
+        const newTag = inputRef.current.value.trim();
+        if (newTag) {
+            const tagWithColor = { text: newTag, color: getRandomColor() };
+            setTags([...tags, tagWithColor]);
+            inputRef.current.value = "";
+            inputRef.current.focus();
+        }
+    };
+
+    const txtinputfile = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setFileName(file.name);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setFileContent(e.target.result);
+                setSplitText([]); // Clear previous split text
+            };
+            reader.readAsText(file);
+        }
+    };
+
+    const removeFile = () => {
+        setFileName('');
+        setFileContent('');
+        setSplitText([]);
+        setSelectedFragments([]);
+        document.getElementById("txtfileinput").value = "";
+    };
+
+    const handleSplitText = (value) => {
+        let lines;
+        if (value === 'line') {
+            lines = fileContent.split('\n').filter(line => line.trim() !== '');
+        } else if (value === 'empty') {
+            lines = fileContent.split(/\n\s*\n/).filter(line => line.trim() !== '');
+        } else {
+            lines = [fileContent];
+        }
+        setSplitText(lines);
+        setSelectedFragments([]); // Clear selected fragments when splitting text
+    };
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            const confirmationMessage = "Are you sure you want to leave this page? Changes you made may not be saved.";
+            event.returnValue = confirmationMessage;
+            return confirmationMessage;
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    // Automatically split text when file content changes
+    useEffect(() => {
+        if (fileContent) {
+            handleSplitText(splitBy);
+        }
+    }, [fileContent, splitBy]);
+
+    const handleTextSelection = () => {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+
+        if (selectedText && selectedTag) {
+            const currentText = splitText[indexval];
+            const startPos = currentText.indexOf(selectedText);
+            const endPos = startPos + selectedText.length;
+
+            if (!selectedFragments.some(fragment => fragment.text === selectedText && fragment.startPos === startPos)) {
+                setSelectedFragments(prev => [
+                    ...prev,
+                    {
+                        text: selectedText,
+                        startPos,
+                        endPos,
+                        tag: selectedTag,
+                    }
+                ]);
+            }
+
+            selection.removeAllRanges();
+        }
+    };
+
+    const renderHighlightedText = (text) => {
+        let renderedText = [];
+        let lastEnd = 0;
+
+        const sortedFragments = selectedFragments
+            .filter(fragment => fragment.startPos >= 0 && fragment.endPos <= text.length)
+            .sort((a, b) => a.startPos - b.startPos);
+
+        sortedFragments.forEach((fragment, index) => {
+            if (lastEnd < fragment.startPos) {
+                renderedText.push(text.slice(lastEnd, fragment.startPos));
+            }
+
+            renderedText.push(
+                <span
+                    key={index}
+                    style={{
+                        backgroundColor: fragment.tag.color,
+                        padding: '0.2em',
+                        margin: '0 0.1em',
+                        display: 'inline-block',
+                        borderRadius: '4px',
+                    }}
+                    title={fragment.tag.text}
+                >
+                    {fragment.text}
+                </span>
+            );
+
+            lastEnd = fragment.endPos;
+        });
+
+        if (lastEnd < text.length) {
+            renderedText.push(text.slice(lastEnd));
+        }
+
+        return renderedText;
+    };
+
+    const handleIndexChange = (index) => {
+        setIndexval(index);
+        setSelectedFragments([]);
+    };
+
+    return (
+        <>
+            <div className="textannoouttercon">
+                {uploader && (
+                    <main className="textannoconinp">
+                        <p className='logotxt'>AnnotateMe.</p>
+                        <section className="txtfileinput">
+                            <div className="innernull">
+                                <input type="file" id="txtfileinput" accept=".txt" onChange={txtinputfile} />
+                                <p className='uploadicon'><BiSolidCloudUpload /></p>
+                                Drag / Choose Text File.
+                            </div>
+                            {fileName !== '' ? (
+                                <div className="innernotnull">
+                                    <p>
+                                        <span onClick={() => { setUploader(false) }} className="getstartbtn">Get Start</span>
+                                        with <b>{fileName}</b>
+                                    </p>
+                                    <p style={{ position: 'absolute', bottom: '0.5em', right: '1em', cursor: 'pointer' }} onClick={removeFile}>
+                                        <FaRotateLeft />
+                                    </p>
+                                </div>
+                            ) : null}
+                        </section>
+                    </main>
+                )}
+                {!uploader && (
+                    <main className="txtannopg">
+                        <menu className="annotatesidemenu">
+                            <div className="annotatesideinner">
+                                <p className="annotxtside">AnnotateMe.</p>
+                                <select
+                                    className='annotatesideinnerselect'
+                                    value={splitBy}
+                                    onChange={(e) => {
+                                        setSplitBy(e.target.value);
+                                        handleSplitText(e.target.value);
+                                    }}
+                                >
+                                    <option value="line">Separate by new line</option>
+                                    <option value="empty">Separate by empty line</option>
+                                </select>
+                                <div className="annotatesideinnercountcon">
+                                    {Array.from({ length: splitText.length }).map((_, index) => (
+                                        <p
+                                            onClick={() => handleIndexChange(index)}
+                                            key={index}
+                                            className={`annotatesideinnercount ${index === indexval ? 'selected' : ''}`}
+                                        >
+                                            {index + 1}
+                                        </p>
+                                    ))}
+                                </div>
+                                <div className="annotatesidetagcon">
+                                    <div className="annotatetagstop">
+                                        <div className="annotatetagadd">
+                                            {!showadd ? (
+                                                <p onClick={() => { setShowAdd(true) }} className="annotatetagaddplus">+</p>
+                                            ) : (
+                                                <>
+                                                    <input
+                                                        className="annotatetagaddinput"
+                                                        type="text"
+                                                        placeholder='New tags'
+                                                        ref={inputRef}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                addTag();
+                                                            }
+                                                        }}
+                                                    />
+                                                    <p className="annotatetagaddplus2" onClick={addTag}>+</p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <p className="tagsedit"><AiFillEdit /></p>
+                                    </div>
+                                    <div className="annotatetagslistcontainer">
+                                        {tags.length > 0 ? (
+                                            tags.map((tag, index) => (
+                                                <span
+                                                    onClick={() => {
+                                                        setSelectedTag(selectedTag?.text === tag.text ? null : { text: tag.text, color: tag.color });
+                                                    }}
+                                                    key={index}
+                                                    className="annotatetag"
+                                                    style={{
+                                                        backgroundColor: tag.color,
+                                                        outline: selectedTag?.text === tag.text ? '2px dashed black' : 'none',
+                                                    }}
+                                                >
+                                                    {tag.text}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <p onClick={() => { setShowAdd(true) }} style={{ opacity: '0.5', padding: '0.5em 0', cursor: 'pointer' }}>Add New tags here +</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <p className="annoexport">Export as JSON <BiSolidFileJson /></p>
+                            </div>
+                        </menu>
+                        <div className="textplaygroundcon">
+                            <div className="textplayground">
+                                <div className="playgroundtop">
+                                    <p className="filenamepgtop">{fileName}</p>
+                                    <p className='threebtnpgtop'>&bull;&bull;&bull;</p>
+                                </div>
+                                <div className="mainplayground" onMouseUp={handleTextSelection}>
+                                    {splitText.length > 0 ? (
+                                        <p className="mainplaygroundtxt">
+                                            {renderHighlightedText(splitText[indexval])}
+                                        </p>
+                                    ) : (
+                                        <p className="mainplaygroundtxt">
+                                            {renderHighlightedText(fileContent)}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                )}
+            </div>
+        </>
+    );
+}
+/////////////////////////////////////////////////////Proper
+
+import './Textanno.css';
+import { BiSolidCloudUpload, BiSolidFileJson } from "react-icons/bi";
+import { FaRotateLeft } from "react-icons/fa6";
+import { useState, useEffect, useRef } from 'react';
+import { AiFillEdit } from "react-icons/ai";
+
+export default function Textanno() {
+    const [uploader, setUploader] = useState(true);
+    const [fileName, setFileName] = useState('');
+    const [fileContent, setFileContent] = useState('');
+    const [splitBy, setSplitBy] = useState('line');
+    const [splitText, setSplitText] = useState([]);
+    const [indexval, setIndexval] = useState(0);
+    const [showadd, setShowAdd] = useState(false);
+    const [tags, setTags] = useState([]);
+    const [selectedTag, setSelectedTag] = useState(null);
+    const [selectedFragments, setSelectedFragments] = useState({});
+
+    const inputRef = useRef(null);
+
+    const getRandomColor = () => {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
+    const addTag = () => {
+        const newTag = inputRef.current.value.trim();
+        if (newTag) {
+            const tagWithColor = { text: newTag, color: getRandomColor() };
+            setTags([...tags, tagWithColor]);
+            inputRef.current.value = "";
+            inputRef.current.focus();
+        }
+    };
+
+    const txtinputfile = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setFileName(file.name);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setFileContent(e.target.result);
+                setSplitText([]);
+            };
+            reader.readAsText(file);
+        }
+    };
+
+    const removeFile = () => {
+        setFileName('');
+        setFileContent('');
+        setSplitText([]);
+        setSelectedFragments({});
+        document.getElementById("txtfileinput").value = "";
+    };
+
+    const handleSplitText = (value) => {
+        let lines;
+        if (value === 'line') {
+            lines = fileContent.split('\n').filter(line => line.trim() !== '');
+        } else if (value === 'empty') {
+            lines = fileContent.split(/\n\s*\n/).filter(line => line.trim() !== '');
+        } else {
+            lines = [fileContent];
+        }
+        setSplitText(lines);
+        setSelectedFragments({});
+    };
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            const confirmationMessage = "Are you sure you want to leave this page? Changes you made may not be saved.";
+            event.returnValue = confirmationMessage;
+            return confirmationMessage;
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (fileContent) {
+            handleSplitText(splitBy);
+        }
+    }, [fileContent, splitBy]);
+
+    const handleTextSelection = () => {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+
+        if (selectedText && selectedTag) {
+            const currentText = splitText[indexval];
+            const startPos = currentText.indexOf(selectedText);
+            const endPos = startPos + selectedText.length;
+
+            if (!selectedFragments[indexval]) {
+                selectedFragments[indexval] = [];
+            }
+
+            if (!selectedFragments[indexval].some(fragment => fragment.text === selectedText && fragment.startPos === startPos)) {
+                selectedFragments[indexval].push({
+                    text: selectedText,
+                    startPos,
+                    endPos,
+                    tag: selectedTag,
+                });
+
+                setSelectedFragments(prev => ({
+                    ...prev,
+                    [indexval]: selectedFragments[indexval],
+                }));
+            }
+
+            selection.removeAllRanges();
+        }
+    };
+
+    const renderHighlightedText = (text) => {
+        let renderedText = [];
+        let lastEnd = 0;
+
+        const fragmentsForCurrentIndex = selectedFragments[indexval] || [];
+        const sortedFragments = fragmentsForCurrentIndex
+            .filter(fragment => fragment.startPos >= 0 && fragment.endPos <= text.length)
+            .sort((a, b) => a.startPos - b.startPos);
+
+        sortedFragments.forEach((fragment, index) => {
+            if (lastEnd < fragment.startPos) {
+                renderedText.push(text.slice(lastEnd, fragment.startPos));
+            }
+
+            renderedText.push(
+                <span
+                    key={index}
+                    style={{
+                        backgroundColor: fragment.tag.color,
+                        padding: '0.2em',
+                        margin: '0 0.1em',
+                        display: 'inline-block',
+                        borderRadius: '4px',
+                    }}
+                    title={fragment.tag.text}
+                >
+                    {fragment.text}
+                </span>
+            );
+
+            lastEnd = fragment.endPos;
+        });
+
+        if (lastEnd < text.length) {
+            renderedText.push(text.slice(lastEnd));
+        }
+
+        return renderedText;
+    };
+
+    const handleIndexChange = (index) => {
+        setIndexval(index);
+    };
+
+    const exportToJson = () => {
+        const trainData = splitText.reduce((acc, text, idx) => {
+            const entities = selectedFragments[idx] ? selectedFragments[idx].map(fragment => [
+                fragment.startPos,
+                fragment.endPos,
+                fragment.tag.text,
+            ]) : [];
+            if (entities.length > 0) {
+                acc.push([text, { entities }]);
+            }
+
+            return acc;
+        }, []);
+
+        const json = `Train_data = ${JSON.stringify(trainData, null, 2)};`;
+        const blob = new Blob([json], { type: 'application/javascript' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'annotateme.js';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    return (
+        <>
+            <div className="textannoouttercon">
+                {uploader && (
+                    <main className="textannoconinp">
+                        <p className='logotxt'>AnnotateMe.</p>
+                        <section className="txtfileinput">
+                            <div className="innernull">
+                                <input type="file" id="txtfileinput" accept=".txt" onChange={txtinputfile} />
+                                <p className='uploadicon'><BiSolidCloudUpload /></p>
+                                Drag / Choose Text File.
+                            </div>
+                            {fileName !== '' ? (
+                                <div className="innernotnull">
+                                    <p>
+                                        <span onClick={() => { setUploader(false) }} className="getstartbtn">Get Start</span>
+                                        with <b>{fileName}</b>
+                                    </p>
+                                    <p style={{ position: 'absolute', bottom: '0.5em', right: '1em', cursor: 'pointer' }} onClick={removeFile}>
+                                        <FaRotateLeft />
+                                    </p>
+                                </div>
+                            ) : null}
+                        </section>
+                    </main>
+                )}
+                {!uploader && (
+                    <main className="txtannopg">
+                        <menu className="annotatesidemenu">
+                            <div className="annotatesideinner">
+                                <p className="annotxtside">AnnotateMe.</p>
+                                <select
+                                    className='annotatesideinnerselect'
+                                    value={splitBy}
+                                    onChange={(e) => {
+                                        setSplitBy(e.target.value);
+                                        handleSplitText(e.target.value);
+                                    }}
+                                >
+                                    <option value="line">Separate by new line</option>
+                                    <option value="empty">Separate by empty line</option>
+                                </select>
+                                <div className="annotatesideinnercountcon">
+                                    {Array.from({ length: splitText.length }).map((_, index) => (
+                                        <p
+                                            onClick={() => handleIndexChange(index)}
+                                            key={index}
+                                            className={`annotatesideinnercount ${index === indexval ? 'selected' : ''}`}
+                                        >
+                                            {index + 1}
+                                        </p>
+                                    ))}
+                                </div>
+                                <div className="annotatesidetagcon">
+                                    <div className="annotatetagstop">
+                                        <div className="annotatetagadd">
+                                            {!showadd ? (
+                                                <p onClick={() => { setShowAdd(true) }} className="annotatetagaddplus">+</p>
+                                            ) : (
+                                                <>
+                                                    <input
+                                                        className="annotatetagaddinput"
+                                                        type="text"
+                                                        placeholder='New tags'
+                                                        ref={inputRef}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                addTag();
+                                                            }
+                                                        }}
+                                                    />
+                                                    <p className="annotatetagaddplus2" onClick={addTag}>+</p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <p className="tagsedit"><AiFillEdit /></p>
+                                    </div>
+                                    <div className="annotatetagslistcontainer">
+                                        {tags.length > 0 ? (
+                                            tags.map((tag, index) => (
+                                                <span
+                                                    onClick={() => {
+                                                        setSelectedTag(selectedTag?.text === tag.text ? null : { text: tag.text, color: tag.color });
+                                                    }}
+                                                    key={index}
+                                                    className="annotatetag"
+                                                    style={{
+                                                        backgroundColor: tag.color,
+                                                        outline: selectedTag?.text === tag.text ? '2px dashed black' : 'none',
+                                                    }}
+                                                >
+                                                    {tag.text}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <p onClick={() => { setShowAdd(true) }} style={{ opacity: '0.5', padding: '0.5em 0', cursor: 'pointer' }}>Add New tags here +</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <p className="annoexport" onClick={exportToJson}>Export as JSON <BiSolidFileJson /></p>
+                            </div>
+                        </menu>
+                        <div className="textplaygroundcon">
+                            <div className="textplayground">
+                                <div className="playgroundtop">
+                                    <p className="filenamepgtop">{fileName}</p>
+                                    <p className='threebtnpgtop'>&bull;&bull;&bull;</p>
+                                </div>
+                                <div className="mainplayground" onMouseUp={handleTextSelection}>
+                                    {splitText.length > 0 ? (
+                                        <p className="mainplaygroundtxt">
+                                            {renderHighlightedText(splitText[indexval])}
+                                        </p>
+                                    ) : (
+                                        <p className="mainplaygroundtxt">
+                                            {renderHighlightedText(fileContent)}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                )}
+            </div>
+        </>
+    );
+}

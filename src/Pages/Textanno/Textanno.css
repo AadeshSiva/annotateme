@@ -1,0 +1,345 @@
+.textannoouttercon {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.textannoconinp {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.txtfileinput {
+    margin-top: 5em;
+    width: 90%;
+    min-height: 250px;
+    padding: 3em 0;
+    background-color: #ffffff0a;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    outline: 1px solid #5f5f5f;
+    transition-duration: 0.5s;
+}
+
+.innernull {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #676666;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+
+.txtfileinput input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.txtfileinput .uploadicon {
+    font-size: 5rem;
+}
+
+.innernotnull {
+    position: absolute;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    font-size: larger;
+}
+
+.getstartbtn {
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    margin-right: 0.2em;
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.txtannopg {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.txtfileinput:hover {
+    background-color: #47474726;
+    color: white;
+}
+
+.txtfileinput:hover .innernull {
+    color: white;
+}
+
+.annotatesidemenu {
+    width: 450px;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.annotatesideinner {
+    width: 90%;
+    height: 94%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #171717;
+    color: #9d9d9d;
+    outline: 1px solid #4a4a4a;
+    border-radius: 20px;
+    position: relative;
+}
+
+.annotxtside {
+    margin: 1em 0;
+}
+
+.annotatesideinnerselect {
+    width: 85%;
+    padding: 1em;
+    background-color: #2d2d2d;
+    color: #9d9d9d;
+    appearance: none;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.annotatesideinnerselect option {
+    border: none;
+    outline: none;
+}
+
+.annotatesideinnercountcon {
+    width: 85%;
+    padding: 1em 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+}
+
+.annotatesideinnercount {
+    width: 2.5rem;
+    aspect-ratio: 1/1;
+    background-color: #2d2d2d;
+    color: #9d9d9d;
+    border-radius: 30px;
+    display: grid;
+    place-items: center;
+    font-size: smaller;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: black;
+    color: white;
+}
+
+.annotatesidetagcon {
+    width: 85%;
+    max-height: 400px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #2d2d2d;
+    color: #9d9d9d;
+    border-radius: 5px;
+    position: relative;
+    overflow: scroll;
+}
+
+.annotatetagstop {
+    width: 100%;
+    top: 0;
+    background-color: #2d2d2d;
+    color: #9d9d9d;
+    position: sticky;
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.1em;
+}
+
+.tagsedit {
+    cursor: pointer;
+    margin: 0 0.5em;
+}
+
+.annotatetagadd {
+    max-width: 80%;
+    background-color: #000000;
+    padding: 0.3em 0.7em;
+    overflow: hidden;
+    border-radius: 30px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    color: #9d9d9d;
+}
+
+.annotatetagaddplus {
+    cursor: pointer;
+}
+
+.annotatetagaddplus2 {
+    padding: 0em 0.2em;
+    cursor: pointer;
+}
+
+.annotatetagaddinput {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: #ffffff;
+}
+
+.annotatetagslistcontainer {
+    width: 100%;
+    padding: 0 0.7em;
+    padding-bottom: 0.7em;
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.annotatetag {
+    padding: 0.2em 0.7em;
+    font-size: smaller;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.annoexport {
+    margin-top: 1em;
+    width: 85%;
+    padding: 0.7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: smaller;
+    gap: 0.5em;
+    cursor: pointer;
+    background-color: #ecec4b;
+    color: #000;
+    border-radius: 5px;
+}
+
+/* ------------------------------------------------------------PLAYGROUND---------------------------- */
+.textplaygroundcon {
+    width: calc(100vw - 450px);
+    height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.textplayground {
+    width: 98.5%;
+    height: 94%;
+    background-color: #171717;
+    color: #ffffff;
+    outline: 1px solid #4a4a4a;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.playgroundtop {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: flex;
+}
+
+.playgroundtop>* {
+    margin: 0.8em;
+    font-size: small;
+
+}
+
+.filenamepgtop {
+    margin-right: auto;
+    padding: 0.2em 0.7em;
+    border-radius: 3px;
+background-color: #2d2d2d;
+    color: #9d9d9d;    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infopgtop {
+    font-size: medium;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.infopgcon {
+    position: absolute;
+    top: 30px;
+    right: 0.7em;
+    background: rgba(0, 0, 0, 0.58);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.6px);
+    -webkit-backdrop-filter: blur(10.6px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 1em;
+    margin: 1em;
+    border-radius: 10px;
+}
+
+.infopgtxt {
+    text-wrap: wrap;
+    color: #ffffff;
+}
+
+.infopgtxt i {
+    color: #d8d8d8;
+}
+
+.mainplayground {
+    flex-grow: 1;
+    margin: 1em;
+    margin-top: 0.5em;
+    padding: 1em;
+    overflow: hidden;
+}
+
+.mainplaygroundtxt {
+    text-wrap: wrap;
+    user-select: text;
+}
+
+.signature {
+    position: absolute;
+    bottom: 0.5em;
+    right: 2em;
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
