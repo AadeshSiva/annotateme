@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Intro from './Pages/Intro.jsx';
-import Menu from './Pages/Menu.jsx';
+import Menu from './Pages/menu.jsx';
 import Textanno from './Pages/Textanno/Textanno.jsx'
 import Docx from './Pages/document.jsx';
 
