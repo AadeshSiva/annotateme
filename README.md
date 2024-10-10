@@ -42,3 +42,8 @@ When exporting the annotated entities as JSON, the format will look like the fol
 
 This project is licensed under the MIT License.
 
+## Contributors
+
+-[AadeshSiva](https://github.com/AadeshSiva)
+
+
