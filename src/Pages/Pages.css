@@ -25,6 +25,7 @@
     position: absolute;
     top: 1em;
     left: 0.5em;
+    z-index: 11111;
 }
 
 .introcontainer {

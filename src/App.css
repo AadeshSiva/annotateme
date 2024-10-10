@@ -48,6 +48,7 @@ body {
 .doxcon {
     color: white;
     margin: 1em;
+    width: 100%;
 }
 
 
@@ -60,39 +61,52 @@ body {
     font-weight: bold;
     color: #676767;
     margin-left: 0.7em;
+    text-wrap: wrap;
 }
 
 .doxtut {
     width: 100%;
     display: grid;
     place-items: center;
-    padding: 0.5em;
+    padding: 0.5em 0;
+    margin:1em 0;
+    text-wrap: wrap;
 }
 
 .doxtut video {
     width: 70%;
     border-radius: 10px;
 }
-
+@media (max-width: 800px) {
+    .doxtut video {
+            width: 90%;
+            border-radius: 10px;
+        }
+}
 .doxhead {
     font-weight: 600;
     font-size: larger;
     margin-top: 2em;
+    text-wrap: wrap;
 }
 
 .doxhead i {
     font-size: x-large;
     color: #676767;
+    text-wrap: wrap;
 }
 
 .doxtxt {
+    text-wrap: wrap;
     text-wrap: wrap;
 }
 
 .doxlist {
     margin: 0 3em;
+    text-wrap: wrap;
 }
 
 .doxlist li {
     margin-bottom: 0.5em;
+    text-wrap: wrap;
 }

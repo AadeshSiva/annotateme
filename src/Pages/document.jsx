@@ -36,7 +36,7 @@ export default function docx() {
                     <li><strong>Step 5 :</strong> Export Annotations - Once done, export your annotations as a <strong>JSON</strong> file.</li>
                 </ol>
 
-                <p className="doxnote" style={{ color: '#ff8484' }}>
+                <p className="doxnote" style={{ color: '#ff8484', textWrap: 'wrap' }}>
                     <strong>Note:</strong> No data is stored on the server, so ensure you export the file before closing the tab.
                 </p>
                 <p className="doxtxt">
