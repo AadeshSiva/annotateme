@@ -59,6 +59,7 @@ body {
 .doxmainhead {
     font-weight: bold;
     color: #676767;
+    margin-left: 0.7em;
 }
 
 .doxtut {
