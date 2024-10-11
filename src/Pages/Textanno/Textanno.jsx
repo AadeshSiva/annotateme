@@ -222,7 +222,7 @@ export default function Textanno() {
                             </div>
                             {fileName !== '' ? (
                                 <div className="innernotnull">
-                                    <p>
+                                    <p className='getstarttxt'>
                                         <span onClick={() => { setUploader(false) }} className="getstartbtn">Get Start</span>
                                         with <b>{fileName}</b>
                                     </p>
