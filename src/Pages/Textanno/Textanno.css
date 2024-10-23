@@ -1,6 +1,6 @@
 .textannoouttercon {
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-color: black;
     display: flex;
     justify-content: center;
@@ -88,7 +88,7 @@
 }
 
 .txtannopg {
-    height: 100vh;
+    height: 100svh;
     width: 100vw;
     display: flex;
 }
@@ -104,7 +104,7 @@
 
 .annotatesidemenu {
     width: 450px;
-    height: 100vh;
+    height: 100svh;
     display: grid;
     place-items: center;
 }
@@ -301,7 +301,7 @@
 /* ------------------------------------------------------------PLAYGROUND---------------------------- */
 .textplaygroundcon {
     width: calc(100vw - 450px);
-    height: 100vh;
+    height: 100svh;
     display: flex;
     justify-content: start;
     align-items: center;
