@@ -73,9 +73,12 @@
     z-index: 10;
     font-size: larger;
 }
-.getstarttxt{
+
+.getstarttxt {
     text-wrap: wrap;
+    padding: 0 0.7em;
 }
+
 .getstartbtn {
     padding: 0.2em 0.5em;
     border-radius: 5px;
@@ -402,8 +405,8 @@
         width: 100vw;
         flex-grow: 1;
         height: auto;
-        display: grid;
-        place-items: center;
+        display: flex;
+        justify-content: center;
     }
 
     .textplayground {
