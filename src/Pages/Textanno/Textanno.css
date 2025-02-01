@@ -268,16 +268,16 @@
 
 
     .annotatesidemenu {
-        width: 100%;
-        padding: 1em 0;
-        justify-content: start;
+        width: 100vw;
+        padding: 1em ;
+        /* justify-content: start; */
         align-items: start;
         background-color: #000;
         height: 350px;
     }
 
     .annotatesideinner {
-        width: 94%;
+        width: 100%;
         padding: 0.7em 0;
     }
 
