@@ -1,22 +1,28 @@
-# AnnotateMe
+# 📝 AnnotateMe
 
-AnnotateMe is a tool for annotating Named Entities in text files, currently supporting the spaCy library. This tool allows users to input a text file, annotate entities, and export the results as JSON or JavaScript objects.
+**AnnotateMe** is a tool for annotating **Named Entities** in text files, currently supporting the **spaCy** library. This tool allows users to input a text file, annotate entities, and export the results as **JSON** or **JavaScript** objects.
 
-## Features
+---
 
-- Input a text file for entity annotation.
-- Supports Named Entity Recognition (NER) with spaCy.
-- Export annotated results in JSON or JavaScript format.
-- User-friendly interface hosted at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app).
+## ✨ Features
 
-## Usage
+- 📄 Input a text file for entity annotation.
+- 🧠 Supports Named Entity Recognition (NER) with spaCy.
+- 📤 Export annotated results in JSON or JavaScript format.
+- 💻 User-friendly interface hosted at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app)
 
-1. Open the application in your browser at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app).
-2. Upload a text file containing the entities you want to annotate.
-3. Use the interface to annotate the entities.
-4. Export your annotations as JSON or JavaScript objects.
+---
 
-## JSON Export Format
+## 🚀 Usage
+
+1. 🌐 Open the application in your browser at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app)
+2. 📂 Upload a text file containing the entities you want to annotate.
+3. 🖊️ Use the interface to annotate the entities.
+4. 📦 Export your annotations as JSON or JavaScript objects.
+
+---
+
+## 🧾 JSON Export Format
 
 When exporting the annotated entities as JSON, the format will look like the following:
 
@@ -38,11 +44,11 @@ When exporting the annotated entities as JSON, the format will look like the fol
 }
 ```
 
-## License
+## 🪪 License
 
 This project is licensed under the MIT License.
 
-## Contributors
+## 🛂 Contributors
 
 -[AadeshSiva](https://github.com/AadeshSiva)
 
