@@ -7,11 +7,11 @@ AnnotateMe is a tool for annotating Named Entities in text files, currently supp
 - Input a text file for entity annotation.
 - Supports Named Entity Recognition (NER) with spaCy.
 - Export annotated results in JSON or JavaScript format.
-- User-friendly interface hosted at [annotatemee.vercel.app](https://annotatemee.vercel.app).
+- User-friendly interface hosted at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app).
 
 ## Usage
 
-1. Open the application in your browser at [annotatemee.vercel.app](https://annotatemee.vercel.app).
+1. Open the application in your browser at 🔗 [annotatemee.vercel.app](https://annotatemee.vercel.app).
 2. Upload a text file containing the entities you want to annotate.
 3. Use the interface to annotate the entities.
 4. Export your annotations as JSON or JavaScript objects.
